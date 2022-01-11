@@ -32,7 +32,7 @@ public class UserService {
     //Get User By id
     public ResponseEntity<User> getById(@PathVariable String nickname){
 
-        Optional<User> user = _userRepository.findByName(nickname);
+        Optional<User> user = _userRepository.findByNickname(nickname);
 
         if(user.isPresent()){
             return new ResponseEntity<User>(user.get(),HttpStatus.OK);
@@ -45,7 +45,8 @@ public class UserService {
 
     //Put User just By IdName
     public ResponseEntity<User> putUser(@PathVariable String nicknamePath, @RequestBody User nickname){
-        Optional<User> olduser = _userRepository.findByName(nicknamePath);
+
+        Optional<User> olduser = _userRepository.findByNickname(nicknamePath);
 
         if(olduser.isPresent()){
             User user = olduser.get();
@@ -61,7 +62,7 @@ public class UserService {
 
     //DELETE User
     public ResponseEntity<Object> deleteUser(@PathVariable String nickname){
-        Optional<User> user = _userRepository.findByName(nickname);
+        Optional<User> user = _userRepository.findByNickname(nickname);
 
         if(user.isPresent()){
             _userRepository.delete(user.get());

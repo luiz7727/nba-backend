@@ -10,5 +10,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
 
-    public Optional<User> findByName(String name);
+    public Optional<User> findByNickname(String name);
+    //Voce pode criar os seus prórios métodos, porém o nome precisa ser compatível com algumas convenções do spring boot.
+    //por exemplo: Não Conseguia criar um método chamado findByName, pois o "Name" não existe nas convenções do spring boot, ai tive que colocar Nickname.
 }
