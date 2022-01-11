@@ -2,13 +2,16 @@ package com.example.nbabackend.Controllers;
 
 import com.example.nbabackend.Model.User;
 import com.example.nbabackend.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
 
-    private UserService _userService;
+
+    @Autowired
+    UserService _userService;
 
     //GetById
     @GetMapping("/getUserId/{nickname}")
@@ -20,7 +23,7 @@ public class UserController {
 
     //createUser
     @PostMapping("/createUser")
-    public ResponseEntity createUser(@RequestBody User user){
+    public User createUser(@RequestBody User user){
         return _userService.createNewUser(user);
     }
 
