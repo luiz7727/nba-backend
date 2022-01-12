@@ -75,5 +75,18 @@ public class UserService {
         }
     }
 
+    //verificando se o usuário já foi cadastrado
+    public HttpStatus userAlreadyCreated(@RequestBody User user){
+        Optional<User> userCreated = _userRepository.findByNickname(user.getNickname());
+
+        HttpStatus userResponseCreated = null;
+
+        if(userCreated.isPresent()){
+
+            userResponseCreated = HttpStatus.CREATED;
+        }
+
+        return userResponseCreated;
+    }
 
 }
