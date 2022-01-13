@@ -76,8 +76,9 @@ public class UserService {
     }
 
     //verificando se o usuário já foi cadastrado
-    public HttpStatus userAlreadyCreated(@RequestBody User user){
-        Optional<User> userCreated = _userRepository.findByNickname(user.getNickname());
+    public HttpStatus userAlreadyCreated(@PathVariable String user){
+
+        Optional<User> userCreated = _userRepository.findByNickname(user);
 
         HttpStatus userResponseCreated = null;
 
@@ -87,6 +88,23 @@ public class UserService {
         }
 
         return userResponseCreated;
+    }
+
+    public ResponseEntity<User> putUserCardInfo (@PathVariable String nickname,@RequestBody User newInfoCardUser){
+
+        Optional<User> userNickname = _userRepository.findByNickname(nickname);
+
+        if (userNickname.isPresent()){
+
+            User newInfos = userNickname.get();
+            newInfos.setCardName(newInfoCardUser.getCardName());
+            newInfos.setCardNumber(newInfoCardUser.getCardNumber());
+            newInfos.setCardCvv(newInfoCardUser.getCardCvv());
+
+            return new ResponseEntity<User>(newInfos,HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
