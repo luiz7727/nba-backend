@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
 
@@ -38,9 +39,16 @@ public class UserController {
     }
 
     //User Registreded
-    @PostMapping("/userRegistred")
-    public HttpStatus userCreated(@RequestBody User user){
-        return _userService.userAlreadyCreated(user);
+    @PostMapping("/userRegistred/{nickname}")
+    public HttpStatus userCreated(@PathVariable String nickname){
+        return _userService.userAlreadyCreated(nickname);
+    }
+
+    //Updating infos user
+    @PutMapping("/updateInfoUsers/{nickname}")
+    public ResponseEntity<User> updateInfosCardUser(@PathVariable String nickname,@RequestBody User newInfoCardUser){
+
+        return _userService.putUserCardInfo(nickname,newInfoCardUser);
     }
 
 }
